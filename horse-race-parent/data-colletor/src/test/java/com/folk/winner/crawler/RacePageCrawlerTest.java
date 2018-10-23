@@ -10,6 +10,8 @@ import java.util.List;
  *
  */
 public class RacePageCrawlerTest {
+	
+	private PageCrawler crawler;
 
 	/**
 	 * 
@@ -19,8 +21,10 @@ public class RacePageCrawlerTest {
 	}
 	
 	public void testCrawl(){
-		RacePageCrawler crawler = new RacePageCrawler(url);
-		List<HorseInfo> horseInfos = crawler.crawl();
+		String url = ""; //local file
+		//PageCrawler crawler = new RacePageCrawler(url);
+		List<HorseDecorator> horseDecorators = crawler.crawl(url);
+		
 	}
 
 }
