@@ -3,6 +3,11 @@
  */
 package com.folk.winner.dc.repository;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.function.BiFunction;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
@@ -36,6 +41,14 @@ public abstract class AbstractCrawlerRepository {
 		ChromeOptions options = new ChromeOptions();
 		// options.addArguments("--headless");
 		webDriver = new ChromeDriver(options);
+	}
+	
+	/**
+	 * 
+	 */
+	public void finalize() {
+		webDriver.close();
+		webDriver.quit();
 	}
 
 	/**
@@ -113,4 +126,75 @@ public abstract class AbstractCrawlerRepository {
 		//System.out.println(webDriver.getPageSource());
 		webDriver.getPageSource();
 	}
+	
+	/**
+	 * @param url
+	 */
+	protected void load(String url) {
+		webDriver.get(url);
+		print();
+	}
+	
+	/**
+	 * 
+	 * @param xpath
+	 * @param attributeName
+	 * @param extractorFunction
+	 * @return
+	 */
+	private Optional<List<String>> doExtract(String xpath, String attributeName,
+			BiFunction<WebElement, String, String> extractorFunction) {
+		List<? extends WebElement> elements = webDriver.findElements(By.xpath(xpath));
+		
+		if (elements == null || elements.isEmpty()) {
+			return Optional.ofNullable(null);
+		}
+
+		List<String> result = new ArrayList<>(elements.size());
+		for (WebElement h : elements) {
+			result.add(extractorFunction.apply(h, attributeName));
+		}
+
+		return Optional.of(result);
+	}
+	
+	/**
+	 * 
+	 * @param h
+	 * @return
+	 */
+	private static String getContent(WebElement h, String extra) {
+		return h.getText();
+	}
+
+	/**
+	 * 
+	 * @param h
+	 * @param attributeName
+	 * @return
+	 */
+	private static String getAttributeValue(WebElement h, String attributeName) {
+		return h.getAttribute(attributeName);
+	}
+	
+	/**
+	 * 
+	 * @param xpath
+	 * @return
+	 */
+	public Optional<List<String>> getContentValues(String xpath) {
+		return doExtract(xpath, null, AbstractCrawlerRepository::getContent);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.folk.winner.horse.race.predictor.scrape.Spider#getAttributeValues(java.
+	 * lang.String, java.lang.String)
+	 */
+	public Optional<List<String>> getAttributeValues(String xpath, String attributeName) {
+		return doExtract(xpath, attributeName, AbstractCrawlerRepository::getAttributeValue);
+	}
+
 }

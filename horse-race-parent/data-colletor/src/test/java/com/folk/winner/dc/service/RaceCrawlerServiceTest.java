@@ -34,7 +34,7 @@ public class RaceCrawlerServiceTest {
 	 *
 	 */
 	@TestConfiguration
-	public static class RacePageCrawlerTestContextConfiguration {
+	public static class RaceCrawlerServiceTestContextConfiguration {
 		
 		@Bean
 		public RaceCrawlerService crawler(){
