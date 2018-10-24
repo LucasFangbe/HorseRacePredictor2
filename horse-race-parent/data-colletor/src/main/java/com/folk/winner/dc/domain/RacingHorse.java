@@ -12,7 +12,7 @@ public class RacingHorse extends Horse {
 	private int rope; // la corde
 	private float weight;
 	private String accessories;
-	private Jokey jokey;
+	private Jockey jockey;
 	private Race race;
 
 	/**
@@ -70,17 +70,17 @@ public class RacingHorse extends Horse {
 	}
 
 	/**
-	 * @return the jokey
+	 * @return the jockey
 	 */
-	public Jokey getJokey() {
-		return jokey;
+	public Jockey getJockey() {
+		return jockey;
 	}
 
 	/**
-	 * @param jokey the jokey to set
+	 * @param jockey the jockey to set
 	 */
-	public void setJokey(Jokey jokey) {
-		this.jokey = jokey;
+	public void setJockey(Jockey jockey) {
+		this.jockey = jockey;
 	}
 
 	/**

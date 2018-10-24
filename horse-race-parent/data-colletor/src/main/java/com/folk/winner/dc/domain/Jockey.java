@@ -7,7 +7,7 @@ package com.folk.winner.dc.domain;
  * @author fangbe
  *
  */
-public class Jokey extends PerformableItem {
+public class Jockey extends PerformableItem {
 
 	/**
 	 * 
@@ -17,7 +17,7 @@ public class Jokey extends PerformableItem {
 	/**
 	 * 
 	 */
-	public Jokey() {
+	public Jockey() {
 		// TODO Auto-generated constructor stub
 	}
 
