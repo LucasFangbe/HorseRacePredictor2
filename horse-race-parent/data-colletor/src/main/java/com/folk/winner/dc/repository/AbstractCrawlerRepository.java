@@ -45,6 +45,15 @@ public abstract class AbstractCrawlerRepository {
 	
 	/**
 	 * 
+	 * @param url
+	 */
+	public void initRead(String url){
+		load(url);
+		authenticate();
+	}
+	
+	/**
+	 * 
 	 */
 	public void finalize() {
 		webDriver.close();
@@ -123,8 +132,8 @@ public abstract class AbstractCrawlerRepository {
 	 * 
 	 */
 	protected void print() {
-		System.out.println(webDriver.getPageSource());
-		//webDriver.getPageSource();
+		//System.out.println(webDriver.getPageSource());
+		webDriver.getPageSource();
 	}
 	
 	/**

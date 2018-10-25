@@ -24,7 +24,7 @@ import com.folk.winner.dc.domain.Race;
 @TestPropertySource(locations = "classpath:application-test.properties")
 public class RaceCrawlerRepositoryTest {
 	
-	private static final String PAGE_URL = "http://www.geny.com/partants-pmu/2018-10-24-deauville-pmu-prix-des-equidays_c1016022";//"src/test/resources/race-page.html";
+	private static final String PAGE_URL = "src/test/resources/race-page.html";
 	
 	@TestConfiguration
 	static class RaceCrawlerRepositoryTestContextConfiguration {
@@ -50,7 +50,7 @@ public class RaceCrawlerRepositoryTest {
 	public void testRead() {
 		try {
 			File page = new File(PAGE_URL);
-			String url = PAGE_URL;//page.toURI().toURL().toString();
+			String url = page.toURI().toURL().toString();
 			Race race = raceCrawlerRepository.read(url);
 			
 			Assert.assertEquals(1900, race.getLength(), 0);

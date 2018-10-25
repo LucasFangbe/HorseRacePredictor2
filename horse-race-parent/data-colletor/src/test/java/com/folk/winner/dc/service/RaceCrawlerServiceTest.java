@@ -57,8 +57,8 @@ public class RaceCrawlerServiceTest {
 		String url = PAGE_URL;
 		
 		Race race = new Race();
-		race.setName("Grand Handicap de la Fibrée");
-		race.setOrder(3);
+		race.setName("Prix des Equidays");
+		race.setOrder(2);
 		race.setLength(1900);
 		race.setRopePosition("D");
 		
@@ -71,8 +71,8 @@ public class RaceCrawlerServiceTest {
 	@Test
 	public void testCrawl(){
 		Race race = crawler.crawl(PAGE_URL);
-		Assert.assertEquals(race.getName(), "Grand Handicap de la Fibrée");
-		Assert.assertEquals(race.getOrder(), 3);
+		Assert.assertEquals(race.getName(), "Prix des Equidays");
+		Assert.assertEquals(race.getOrder(), 2);
 	}
 
 }

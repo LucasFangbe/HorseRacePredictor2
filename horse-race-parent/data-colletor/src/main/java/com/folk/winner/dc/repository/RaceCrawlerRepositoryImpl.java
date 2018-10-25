@@ -30,8 +30,7 @@ public class RaceCrawlerRepositoryImpl extends AbstractCrawlerRepository impleme
 	 */
 	@Override
 	public Race read(String url) {
-		load(url);
-		authenticate();
+		initRead(url);
 		
 		Race race = new Race();
 		setNameAndOrder(race);
@@ -87,19 +86,23 @@ public class RaceCrawlerRepositoryImpl extends AbstractCrawlerRepository impleme
 		horse.setRope(Integer.valueOf(ropeCell.getText()));
 		
 		WebElement weightCell = cells.get(4);
-		horse.setWeight(Float.valueOf(weightCell.getText()));
+		horse.setWeight(Float.valueOf(weightCell.getText().replace(",", ".")));
 		
-		WebElement img = nameCell.findElement(By.xpath("div/span/img"));
-		String alt = img != null ? img.getAttribute("alt").trim() : null;
-		if("logo oeilleres australiennes".equalsIgnoreCase(alt)) {
-			horse.setAccessories("OA");
-		} else if("logo oeilleres".equalsIgnoreCase(alt)) {
-			horse.setAccessories("O");
+		try {
+			WebElement img = nameCell.findElement(By.xpath("div/span/img"));
+			String alt = img != null ? img.getAttribute("alt").trim() : null;
+			if("logo oeilleres australiennes".equalsIgnoreCase(alt)) {
+				horse.setAccessories("OA");
+			} else if("logo oeilleres".equalsIgnoreCase(alt)) {
+				horse.setAccessories("O");
+			}
+		} catch (Exception e) {
+			//the img is not found. So please let's ignore it and continue
 		}
 		
 		WebElement valueCell = cells.get(9);
 		String value = valueCell.getText().trim();
-		horse.setValue(value != null && !"".equals(value) ? Float.valueOf(ropeCell.getText()) : 0);
+		horse.setValue(value != null && !"".equals(value) ? Float.valueOf(valueCell.getText().replace(",", ".")) : 0);
 		
 		WebElement jockeyCell = cells.get(6);
 		Jockey jockey = new Jockey();
