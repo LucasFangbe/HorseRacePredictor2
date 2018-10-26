@@ -132,8 +132,8 @@ public abstract class AbstractCrawlerRepository {
 	 * 
 	 */
 	protected void print() {
-		//System.out.println(webDriver.getPageSource());
-		webDriver.getPageSource();
+		System.out.println(webDriver.getPageSource());
+		//webDriver.getPageSource();
 	}
 	
 	/**

@@ -15,6 +15,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.folk.winner.dc.domain.Race;
+import com.folk.winner.dc.repository.CoachCrawlerRepository;
+import com.folk.winner.dc.repository.JockeyCrawlerRepository;
 import com.folk.winner.dc.repository.RaceCrawlerRepository;
 import com.folk.winner.dc.service.RaceCrawlerService;
 import com.folk.winner.dc.service.RaceCrawlerServiceImpl;
@@ -48,6 +50,12 @@ public class RaceCrawlerServiceTest {
 	
 	@MockBean
 	private RaceCrawlerRepository repository;
+	
+	@MockBean
+	private JockeyCrawlerRepository jockeyCrawlerRepository;
+	
+	@MockBean
+	private CoachCrawlerRepository coachCrawlerRepository;
 
 	/**
 	 * 
