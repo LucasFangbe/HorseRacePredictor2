@@ -4,6 +4,7 @@
 package com.folk.winner.dc.domain;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -21,6 +22,7 @@ public class Race implements Serializable {
 	private String ropePosition;
 	private int order;
 	private float length;
+	private Date date;
 	private List<RacingHorse> racingHorses;
 
 	/**
@@ -98,6 +100,20 @@ public class Race implements Serializable {
 	 */
 	public void setRacingHorses(List<RacingHorse> racingHorses) {
 		this.racingHorses = racingHorses;
+	}
+
+	/**
+	 * @return the date
+	 */
+	public Date getDate() {
+		return date;
+	}
+
+	/**
+	 * @param date the date to set
+	 */
+	public void setDate(Date date) {
+		this.date = date;
 	}
 	
 	

@@ -3,7 +3,10 @@
  */
 package com.folk.winner.dc.repository;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,12 +36,34 @@ public class RaceCrawlerRepositoryImpl extends AbstractCrawlerRepository impleme
 		initRead(url);
 		
 		Race race = new Race();
+		
+		setDate(race);
 		setNameAndOrder(race);
 		setLengthAndRopePosition(race);
 		setRacingHorses(race);
 		
 		return race;
 		
+	}
+
+	/**
+	 * @param race
+	 */
+	protected void setDate(Race race) {
+		Optional<List<String>> dateInfo = getContentValues("//*[@id='yui-main']/div/div[1]/div[2]/div/div[1]/span[1]");
+		dateInfo.ifPresent(c -> {
+			String content = c.get(0);
+			String[] values = content.split(" ");
+			String dateValue = values[1];
+			Date date;
+			try {
+				date = new SimpleDateFormat("dd/MM/yy").parse(dateValue);
+			} catch (ParseException e) {
+				// unable to get the race date. Let's use the current date
+				date = new Date();
+			}
+			race.setDate(date);
+		});
 	}
 
 	/**
