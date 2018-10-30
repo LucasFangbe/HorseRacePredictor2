@@ -10,6 +10,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Repository;
 
 import com.folk.winner.dc.helper.RacingHorsePerformance;
+import com.folk.winner.dc.helper.RacingHorsePerformance.RacingHorsePerformanceBuilder;
 
 /**
  * @author fangbe
@@ -34,18 +35,24 @@ public class RacingHorseCrawlerRepositoryImpl extends AbstractCrawlerRepository 
 	@Override
 	public RacingHorsePerformance readForPerformance(String url, Date date) {
 		initRead(url);
-		StringBuilder performance = new StringBuilder();
 		
-		Optional<List<String>> namesOptional = getContentValues(path);
-		namesOptional.ifPresent(c -> {
-			String marker = "Réussite à la place : ";
+		
+		RacingHorsePerformanceBuilder racingHorsePerformanceBuilder = new RacingHorsePerformanceBuilder();
+		
+		Optional<List<String>> raceCountOptional = getContentValues("//*[@id='fc']/table[1]/tbody/tr[2]/td[2]");
+		raceCountOptional.ifPresent(c -> {
 			String content = c.get(0);
-			int pos1 = content.indexOf(marker);
-			int pos2 = content.indexOf("%", pos1 + marker.length());
-			if(pos1 >= 0 && pos2 >= 0){
-				performance.append(content.substring(pos1 + marker.length(), pos2).replace(",", "."));
-			}
+			racingHorsePerformanceBuilder.setRaceCount(Integer.valueOf(content));
 		});
+		
+		Optional<List<String>> placedCountOptional = getContentValues("//*[@id='fc']/table[1]/tbody/tr[2]/td[4]");
+		placedCountOptional.ifPresent(c -> {
+			String content = c.get(0);
+			racingHorsePerformanceBuilder.setPlacedCount(Integer.valueOf(content));
+		});
+		
+		
+		
 		
 		return null;
 	}
